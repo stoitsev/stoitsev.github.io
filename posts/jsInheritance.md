@@ -1,10 +1,10 @@
 {
   title: "JavaScript Inheritance Pitfall",
-  date:  "2014-06-09",
+  date:  "2014-06-20",
   description: "JavaScript Inheritance"
 }
 
-Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate componetns. As you know, there are no native mechanisms in the version of JavaScript, which we use today, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.
+Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.
 
 I am going to use [Simple JavaScript Inheritance](http://ejohn.org/blog/simple-javascript-inheritance/) library by John Resig(the creator of jQuery) for the following examples. Please, note that the problem described here, is not specific to this library.
 
@@ -49,16 +49,18 @@ ninja.showSkills(); // outputs eat, sleep, fight, paint
 painter.showSkills(); // outputs eat, sleep, fight, paint
 ```
 
-This is really weird. Why does ```ninja.showSkills();``` print ```paint``` as one of the ninja's skills? It has nothing to do with it because this skill is added only in the ```Painter``` class. Stupid JavaScript.
+This is really weird. Why does ```ninja.showSkills();``` print ```paint``` as one of the ninja's skills? It has nothing to do with it because this skill is added only in the constructor of the ```Painter``` class. The states of those two objects should be isolated and some changes in the state of the first object should not change the state of the second object. This is opposite to what we see here. Stupid JavaScript.
 
-If you don't beleave me go [try it](http://jsfiddle.net/stoitsev/BjX3m/).
+If you don't believe me go [try it](http://jsfiddle.net/stoitsev/BjX3m/).
 
-The reason for this strange behavior is that in JavaScript everything is passed by reference. Also, you have to remember that JavaScript uses functional scope. When you declare the ```skills``` array in the ```Person``` class definition, an object for that array gets created, because arrays are objects. In the ```skills``` variable is saved a refenrece to that object. 
+The reason for this strange behavior is that in JavaScript everything is passed by reference. Also, you have to remember that JavaScript uses functional scope. When you declare the ```skills``` array in the ```Person``` class definition, an object for that array gets created(because arrays are objects) and a reference for that object is saved in the ```skills``` variable. 
 
-When you create new instance of class ```Painter```, the pointer to the ```skills``` object is coppied and we access the same array in ```Painter``` instance. In the constructor of the object, we add ```paint``` as a skill to the array and because this point to the array declared in ```Person```, we add actually modify the array.
+When you create new instance of class ```Painter```, the pointer to the ```skills``` object is copied and we access the same place in memory where the original array is. In the constructor of the object, we add ```paint``` as a skill to the array and because this point to the same original array declared in ```Person```, we actually modify it.
 
-When you create second instance of class ```Ninja``` the same thing happen. In the constructor of the class we access the same array declared in ```Person``` and when we add ```fight``` as an element to it, we actually add it to the original array again. So after the two objects are created, ```paint``` and ```fight``` are added to the ```skills``` array.
+When you create second instance of class ```Ninja``` the same thing happen. In the constructor of the class we access the same array declared in ```Person``` and when we add ```fight``` as an element to it, we actually add it to the original array again. So after the two objects are created, ```paint``` and ```fight``` are added to the same ```skills``` array.
 
-When you try to print the ```skills``` array from some of the instance, you access the object that is declared in the ```Person``` class, which contains both ```paint``` and ```fight```. That's why they are printed after the ```showSkills``` call.
+When you try to print the ```skills``` array from some of the instance, you access the object that is declared in the ```Person``` class, which contains both ```paint``` and ```fight```. That's why they are printed as a result of ```showSkills``` call.
 
-If you want to see the solution of the problem, ask in the comments bellow and I'll post it over here. This is my first blog post in this new blog so stay tuned for more. I'll try to post something new once every week.
+If you want to see a solution to the problem, __ask in the comments bellow__ and I'll post it over here. 
+
+This is my first blog post in this new blog so stay tuned for more.
