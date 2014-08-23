@@ -14,6 +14,7 @@ $headerFont: 'Open Sans', sans-serif;
 $mainTheme: $blue;
 $baseTextColor: $offBlack;
 $lightTextColor: $grey;
+$disclamerColor: lighten($offBlack, 30);
 
 @mixin breakpoint($point) {
   @if $point == big-phone {
@@ -88,4 +89,9 @@ body {
 
 .newer {
   float: right;
+}
+
+.disclaimer {
+  font-size: 0.7em;
+  color: $disclamerColor;
 }
