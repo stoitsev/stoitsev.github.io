@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+  <head>
+	<meta charset="utf-8">
+	<title>JavaScript Inheritance Pitfall | Nikolay Stoitsev's Blog</title>
+	<meta name="description" content="Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you kno...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<!-- Canonical -->
+	<link rel="canonical" href="https://stoitsev.github.io//2015/02/02/js-inheritance.html">
+	
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Nikolay Stoitsev's Blog" href="https://stoitsev.github.io//feed.xml" />
+	
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Google Fonts -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+	<!-- Google Analytics -->
+	
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-51440153-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	
+</head>
+
+
+  <body>
+    <header class="site-header">
+
+	<div class="branding">
+		
+		<a href="/">
+      <img class="avatar" src="/img/new_avatar.png" alt=""/>
+    </a>
+		
+
+		<h1 class="site-title">
+			<a href="/">Nikolay Stoitsev's Blog</a>
+		</h1>
+	</div>
+
+	<nav class="site-nav">
+		<ul>
+			<!-- Social icons from Font Awesome, if enabled -->
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/stoitsev" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://bg.linkedin.com/in/nikolaystoitsev" title="Follow on LinkedIn">
+		<i class="fa fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/stoitsev" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+		</ul>
+	</nav>
+
+</header>
+
+
+    <div class="content">
+      <article class="feature-image">
+
+  <header style="background-image: url('/img/sample_feature_img.png')">
+    <h1 class="title">JavaScript Inheritance Pitfall</h1>
+    
+    <p class="meta">
+    February 2, 2015
+    
+    </p>
+  </header>
+
+  <section class="post-content">
+    <p>Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.</p>
+
+<p>I am going to use <a href="http://ejohn.org/blog/simple-javascript-inheritance/">Simple JavaScript Inheritance</a> library by John Resig(the creator of jQuery) for the following examples. Please, note that the problem described here, is not specific to this library.</p>
+
+<p>Lets look at the following example.</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">skills</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;eat&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep&#39;</span><span class="p">],</span>
+  <span class="nx">showSkills</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">skills</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>   
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Ninja</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">skills</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;fight&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Ninja&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Painter</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">skills</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;paint&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Painter&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></div>
+
+<p>So, we have one base class <code>Person</code>. Also, there are <code>Ninja</code> and <code>Painter</code> that are extending <code>Person</code> by adding more skills to the <code>skills</code> array. So the ninja can eat, sleep and fight and the painter can eat, seep and paint.</p>
+
+<p>Let’s create one object of each type.</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ninja</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ninja</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">painter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Painter</span><span class="p">();</span></code></pre></div>
+
+<p>And then let’s try to call the <code>showSkills</code> method.</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">ninja</span><span class="p">.</span><span class="nx">showSkills</span><span class="p">();</span> <span class="c1">// outputs eat, sleep, fight, paint</span>
+<span class="nx">painter</span><span class="p">.</span><span class="nx">showSkills</span><span class="p">();</span> <span class="c1">// outputs eat, sleep, fight, paint</span></code></pre></div>
+
+<p>This is really weird. Why does <code>ninja.showSkills();</code> print <code>paint</code> as one of the ninja’s skills? It has nothing to do with it because this skill is added only in the constructor of the <code>Painter</code> class. The states of those two objects should be isolated and some changes in the state of the first object should not change the state of the second object. This is opposite to what we see here. Stupid JavaScript.</p>
+
+<p>If you don’t believe me go <a href="http://jsfiddle.net/stoitsev/BjX3m/">try it</a>.</p>
+
+<p>The reason for this strange behavior is that in JavaScript everything is passed by reference. Also, you have to remember that JavaScript uses functional scope. When you declare the <code>skills</code> array in the <code>Person</code> class definition, an object for that array gets created(because arrays are objects) and a reference for that object is saved in the <code>skills</code> variable. </p>
+
+<p>When you create new instance of class <code>Painter</code>, the pointer to the <code>skills</code> object is copied and we access the same place in memory where the original array is. In the constructor of the object, we add <code>paint</code> as a skill to the array and because this point to the same original array declared in <code>Person</code>, we actually modify it.</p>
+
+<p>When you create second instance of class <code>Ninja</code> the same thing happen. In the constructor of the class we access the same array declared in <code>Person</code> and when we add <code>fight</code> as an element to it, we actually add it to the original array again. So after the two objects are created, <code>paint</code> and <code>fight</code> are added to the same <code>skills</code> array.</p>
+
+<p>When you try to print the <code>skills</code> array from some of the instance, you access the object that is declared in the <code>Person</code> class, which contains both <code>paint</code> and <code>fight</code>. That’s why they are printed as a result of <code>showSkills</code> call.</p>
+
+<p>If you want to see a solution to the problem, <strong>ask in the comments bellow</strong> and I’ll post it over here. </p>
+
+<p>This is my first blog post in this new blog so stay tuned for more.</p>
+
+  </section>
+  
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'stoitsevblog'; 
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+    </div>
+
+    
+<footer class="site-footer">
+	<p class="text">Powered by <a href="http://jekyllrb.com">Jekyll</a> with <a href="https://stoitsev.github.io/project/type/">Type Theme</a>
+</p>
+</footer>
+
+  </body>
+  
+</html>

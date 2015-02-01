@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nikolay Stoitsev&#39;s Blog</title>
+    <atom:link href="https://stoitsev.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://stoitsev.github.io//</link>
+    <description>A website with blog posts and pages</description>
+    <pubDate>Mon, 02 Feb 2015 01:07:20 +0200</pubDate>
+    
+      <item>
+        <title>JavaScript Inheritance Pitfall</title>
+        <link>https://stoitsev.github.io//2015/02/02/js-inheritance.html</link>
+        <guid isPermaLink="true">https://stoitsev.github.io//2015/02/02/js-inheritance.html</guid>
+        <description>&lt;p&gt;Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.&lt;/p&gt;
+
+&lt;p&gt;I am going to use &lt;a href=&quot;http://ejohn.org/blog/simple-javascript-inheritance/&quot;&gt;Simple JavaScript Inheritance&lt;/a&gt; library by John Resig(the creator of jQuery) for the following examples. Please, note that the problem described here, is not specific to this library.&lt;/p&gt;
+
+&lt;p&gt;Lets look at the following example.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;skills&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;eat&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;sleep&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;showSkills&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;: &amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skills&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;   
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ninja&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skills&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fight&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ninja&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Painter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skills&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;paint&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Painter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So, we have one base class &lt;code&gt;Person&lt;/code&gt;. Also, there are &lt;code&gt;Ninja&lt;/code&gt; and &lt;code&gt;Painter&lt;/code&gt; that are extending &lt;code&gt;Person&lt;/code&gt; by adding more skills to the &lt;code&gt;skills&lt;/code&gt; array. So the ninja can eat, sleep and fight and the painter can eat, seep and paint.&lt;/p&gt;
+
+&lt;p&gt;Let’s create one object of each type.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ninja&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Ninja&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;painter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Painter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And then let’s try to call the &lt;code&gt;showSkills&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;ninja&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;showSkills&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// outputs eat, sleep, fight, paint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;painter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;showSkills&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// outputs eat, sleep, fight, paint&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This is really weird. Why does &lt;code&gt;ninja.showSkills();&lt;/code&gt; print &lt;code&gt;paint&lt;/code&gt; as one of the ninja’s skills? It has nothing to do with it because this skill is added only in the constructor of the &lt;code&gt;Painter&lt;/code&gt; class. The states of those two objects should be isolated and some changes in the state of the first object should not change the state of the second object. This is opposite to what we see here. Stupid JavaScript.&lt;/p&gt;
+
+&lt;p&gt;If you don’t believe me go &lt;a href=&quot;http://jsfiddle.net/stoitsev/BjX3m/&quot;&gt;try it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The reason for this strange behavior is that in JavaScript everything is passed by reference. Also, you have to remember that JavaScript uses functional scope. When you declare the &lt;code&gt;skills&lt;/code&gt; array in the &lt;code&gt;Person&lt;/code&gt; class definition, an object for that array gets created(because arrays are objects) and a reference for that object is saved in the &lt;code&gt;skills&lt;/code&gt; variable. &lt;/p&gt;
+
+&lt;p&gt;When you create new instance of class &lt;code&gt;Painter&lt;/code&gt;, the pointer to the &lt;code&gt;skills&lt;/code&gt; object is copied and we access the same place in memory where the original array is. In the constructor of the object, we add &lt;code&gt;paint&lt;/code&gt; as a skill to the array and because this point to the same original array declared in &lt;code&gt;Person&lt;/code&gt;, we actually modify it.&lt;/p&gt;
+
+&lt;p&gt;When you create second instance of class &lt;code&gt;Ninja&lt;/code&gt; the same thing happen. In the constructor of the class we access the same array declared in &lt;code&gt;Person&lt;/code&gt; and when we add &lt;code&gt;fight&lt;/code&gt; as an element to it, we actually add it to the original array again. So after the two objects are created, &lt;code&gt;paint&lt;/code&gt; and &lt;code&gt;fight&lt;/code&gt; are added to the same &lt;code&gt;skills&lt;/code&gt; array.&lt;/p&gt;
+
+&lt;p&gt;When you try to print the &lt;code&gt;skills&lt;/code&gt; array from some of the instance, you access the object that is declared in the &lt;code&gt;Person&lt;/code&gt; class, which contains both &lt;code&gt;paint&lt;/code&gt; and &lt;code&gt;fight&lt;/code&gt;. That’s why they are printed as a result of &lt;code&gt;showSkills&lt;/code&gt; call.&lt;/p&gt;
+
+&lt;p&gt;If you want to see a solution to the problem, &lt;strong&gt;ask in the comments bellow&lt;/strong&gt; and I’ll post it over here. &lt;/p&gt;
+
+&lt;p&gt;This is my first blog post in this new blog so stay tuned for more.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Feb 2015 00:00:00 +0200</pubDate>
+      </item>
+    
+  </channel>
+</rss>
