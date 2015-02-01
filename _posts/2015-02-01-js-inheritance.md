@@ -10,7 +10,7 @@ I am going to use [Simple JavaScript Inheritance](http://ejohn.org/blog/simple-j
 
 Lets look at the following example.
 
-{% highlight js %}
+```javascript
 var Person = Class.extend({
   skills: ['eat', 'sleep'],
   showSkills: function() {
@@ -31,23 +31,23 @@ var Painter = Person.extend({
     this.name = 'Painter';
   }
 });
-{% endhighlight %}
+```
 
 So, we have one base class ```Person```. Also, there are ```Ninja``` and ```Painter``` that are extending ```Person``` by adding more skills to the ```skills``` array. So the ninja can eat, sleep and fight and the painter can eat, seep and paint.
 
 Let's create one object of each type.
 
-{% highlight js %}
+```javascript
 var ninja = new Ninja();
 var painter = new Painter();
-{% endhighlight %}
+````
 
 And then let's try to call the ```showSkills``` method.
 
-{% highlight js %}
+```javascript
 ninja.showSkills(); // outputs eat, sleep, fight, paint
 painter.showSkills(); // outputs eat, sleep, fight, paint
-{% endhighlight %}
+```
 
 This is really weird. Why does ```ninja.showSkills();``` print ```paint``` as one of the ninja's skills? It has nothing to do with it because this skill is added only in the constructor of the ```Painter``` class. The states of those two objects should be isolated and some changes in the state of the first object should not change the state of the second object. This is opposite to what we see here. Stupid JavaScript.
 
