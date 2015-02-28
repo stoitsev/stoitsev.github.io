@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Nikolay Stoitsev]]></title>
+  <link href="http://stoitsev.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://stoitsev.github.io/"/>
+  <updated>2015-02-28T23:38:39+02:00</updated>
+  <id>http://stoitsev.github.io/</id>
+  <author>
+    <name><![CDATA[Nikolay Stoitsev]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScript Inheritance Pitfall]]></title>
+    <link href="http://stoitsev.github.io/blog/2015/02/28/javascript-inheritance-pitfall/"/>
+    <updated>2015-02-28T23:16:07+02:00</updated>
+    <id>http://stoitsev.github.io/blog/2015/02/28/javascript-inheritance-pitfall</id>
+    <content type="html"><![CDATA[<p>Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.</p>
+
+<p>I am going to use <a href="http://ejohn.org/blog/simple-javascript-inheritance/">Simple JavaScript Inheritance</a> library by John Resig(the creator of jQuery) for the following examples. Please, note that the problem described here, is not specific to this library.</p>
+
+<p>Lets look at the following example.</p>
+
+<pre><code class="javascript">var Person = Class.extend({
+  skills: ['eat', 'sleep'],
+  showSkills: function() {
+      console.log(this.name + ': ' + this.skills.toString());   
+  }
+});
+
+var Ninja = Person.extend({
+  init: function(){
+    this.skills.push('fight');
+    this.name = 'Ninja';
+  }
+});
+
+var Painter = Person.extend({
+  init: function(){
+    this.skills.push('paint');
+    this.name = 'Painter';
+  }
+});
+</code></pre>
+
+<p>So, we have one base class <code>Person</code>. Also, there are <code>Ninja</code> and <code>Painter</code> that are extending <code>Person</code> by adding more skills to the <code>skills</code> array. So the ninja can eat, sleep and fight and the painter can eat, seep and paint.</p>
+
+<p>Let&rsquo;s create one object of each type.</p>
+
+<pre><code class="javascript">var ninja = new Ninja();
+var painter = new Painter();
+</code></pre>
+
+<p>And then let&rsquo;s try to call the <code>showSkills</code> method.</p>
+
+<pre><code class="javascript">ninja.showSkills(); // outputs eat, sleep, fight, paint
+painter.showSkills(); // outputs eat, sleep, fight, paint
+</code></pre>
+
+<p>This is really weird. Why does <code>ninja.showSkills();</code> print <code>paint</code> as one of the ninja&rsquo;s skills? It has nothing to do with it because this skill is added only in the constructor of the <code>Painter</code> class. The states of those two objects should be isolated and some changes in the state of the first object should not change the state of the second object. This is opposite to what we see here. Stupid JavaScript.</p>
+
+<p>If you don&rsquo;t believe me go <a href="http://jsfiddle.net/stoitsev/BjX3m/">try it</a>.</p>
+
+<p>The reason for this strange behavior is that in JavaScript everything is passed by reference. Also, you have to remember that JavaScript uses functional scope. When you declare the <code>skills</code> array in the <code>Person</code> class definition, an object for that array gets created(because arrays are objects) and a reference for that object is saved in the <code>skills</code> variable.</p>
+
+<p>When you create new instance of class <code>Painter</code>, the pointer to the <code>skills</code> object is copied and we access the same place in memory where the original array is. In the constructor of the object, we add <code>paint</code> as a skill to the array and because this point to the same original array declared in <code>Person</code>, we actually modify it.</p>
+
+<p>When you create second instance of class <code>Ninja</code> the same thing happen. In the constructor of the class we access the same array declared in <code>Person</code> and when we add <code>fight</code> as an element to it, we actually add it to the original array again. So after the two objects are created, <code>paint</code> and <code>fight</code> are added to the same <code>skills</code> array.</p>
+
+<p>When you try to print the <code>skills</code> array from some of the instance, you access the object that is declared in the <code>Person</code> class, which contains both <code>paint</code> and <code>fight</code>. That&rsquo;s why they are printed as a result of <code>showSkills</code> call.</p>
+
+<p>If you want to see a solution to the problem, <strong>ask in the comments bellow</strong> and I&rsquo;ll post it over here.</p>
+
+<p>This is my first blog post in this new blog so stay tuned for more.</p>
+]]></content>
+  </entry>
+  
+</feed>
