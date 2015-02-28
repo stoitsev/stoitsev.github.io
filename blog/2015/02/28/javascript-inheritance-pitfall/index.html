@@ -98,15 +98,6 @@
   
   
   
-    
-      <form action="https://www.google.com/search" method="get">
-        <fieldset role="search">
-          <input type="hidden" name="sitesearch" value="stoitsev.github.io" />
-    
-          <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-        </fieldset>
-      </form>
-  
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
@@ -131,7 +122,9 @@
 
 
 
-<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:16 pm</span></time>
+<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'>Feb 28 2015</span> <span class='time'>11:16 pm</span></time>
+        
+         | <a href="#disqus_thread">Comments</a>
         
         
       </p>
@@ -247,7 +240,7 @@
 
 
 
-<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:16 pm</span></time>
+<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'>Feb 28 2015</span> <span class='time'>11:16 pm</span></time>
       
       
 
@@ -268,6 +261,9 @@
   
     <div class="fb-like" data-layout="button_count" data-send="false" data-width="300" data-show-faces="false"></div>
   
+    <div class="hn-share">
+      <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
+    </div>
 </div>
 
     
@@ -278,18 +274,43 @@
   </footer>
 </article>
 
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
 
 </div>
 
     </div>
   </div>
   <footer role="contentinfo"><p>
+	My postings are my own and don’t necessarily represent VMware’s positions, strategies or opinions. (I work there)
+</p>
+<p>
   Copyright &copy; 2015 - Nikolay Stoitsev -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Themed with <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> | Theme based on <a href="https://github.com/lucaslew/whitespace">Whitespace</a></span>
 </p>
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'stoitsevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://stoitsev.github.io/blog/2015/02/28/javascript-inheritance-pitfall/';
+        var disqus_url = 'http://stoitsev.github.io/blog/2015/02/28/javascript-inheritance-pitfall/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
@@ -306,6 +327,14 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
+<script>
+  (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.src = '//hnbutton.appspot.com/static/hn.min.js';
+    s.parentNode.insertBefore(g, s);
+  }(document, 'script'));
+</script>
 
 
 
