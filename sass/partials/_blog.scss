@@ -27,6 +27,11 @@ article {
         @extend .sans;
         text-transform: uppercase;
         margin-top: 20px;
+        &:before, &:after {
+          content: '—';
+          padding: 0 10px;
+        }
+
       }
     }
     @media only screen and (min-width: 768px) {
