@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Nikolay Stoitsev]]></title>
   <link href="http://stoitsev.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://stoitsev.github.io/"/>
-  <updated>2015-03-01T00:34:53+02:00</updated>
+  <updated>2015-03-01T01:22:13+02:00</updated>
   <id>http://stoitsev.github.io/</id>
   <author>
     <name><![CDATA[Nikolay Stoitsev]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Handling NaN in JavaScript]]></title>
+    <link href="http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/"/>
+    <updated>2015-03-01T01:06:45+02:00</updated>
+    <id>http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript</id>
+    <content type="html"><![CDATA[<p>NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example:
+<code>
+var nanValue = 1 / 'a';
+</code>
+After this expression is evaluated, the value of the variable <code>nanValue</code> will be <code>NaN</code>.</p>
+
+<p>The fun starts here.</p>
+
+<p>If you try to check the type of <code>nanValue</code> like this:
+<code>javascript
+typeof a; // "number"
+</code>
+The result will be &ldquo;number&rdquo;.</p>
+
+<p>Also, if you try to compare NaN to NaN, here is what happens:
+<code>javascript
+nanValue === nanValue; // false
+nanValue === NaN; // false
+nanValue == NaN; // false
+</code>
+So, if you have to check for <code>NaN</code> value in some production code, you might write the following block:
+<code>javascript
+if (someValue !== NaN) {
+    // do something;
+}
+</code>
+This condition will be always true. No matter if <code>someValue</code> contains <code>NaN</code> or not.</p>
+
+<p>The correct way to do this is to use the built in function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN">isNaN</a> or perform a special type of comparison.</p>
+
+<p>The block of code, shown above, should be refactored like this:
+<code>javascript
+if (isNaN(someValue)) {
+    // do something;
+}
+</code></p>
+
+<p>The second approach looks like this:
+<code>javascript
+if (someValue !== someValue) {
+    // do something;
+}
+</code>
+This comparison will be true, only if the value of <code>someValue</code> is <code>NaN</code>.</p>
+
+<p>In my humbe oppinion, the first approach is far more readable and should be prefered.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript Inheritance Pitfall]]></title>

@@ -9,7 +9,8 @@
   <meta name="author" content="Nikolay Stoitsev">
 
   
-  <meta name="description" content="Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As &hellip;">
+  <meta name="description" content="NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example: 1
+var nanValue &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -114,6 +115,107 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/03/01/handling-nan-in-javascript/">Handling NaN in JavaScript</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-03-01T01:06:45+02:00'><span class='date'>Mar  1 2015</span> <span class='time'></span></time>
+        
+         • <a href="/blog/2015/03/01/handling-nan-in-javascript/#disqus_thread">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var nanValue = 1 / 'a';</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After this expression is evaluated, the value of the variable <code>nanValue</code> will be <code>NaN</code>.</p>
+
+<p>The fun starts here.</p>
+
+<p>If you try to check the type of <code>nanValue</code> like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">typeof</span> <span class="nx">a</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The result will be &ldquo;number&rdquo;.</p>
+
+<p>Also, if you try to compare NaN to NaN, here is what happens:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="nx">nanValue</span><span class="p">;</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">nanValue</span> <span class="o">==</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, if you have to check for <code>NaN</code> value in some production code, you might write the following block:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="kc">NaN</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This condition will be always true. No matter if <code>someValue</code> contains <code>NaN</code> or not.</p>
+
+<p>The correct way to do this is to use the built in function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN">isNaN</a> or perform a special type of comparison.</p>
+
+<p>The block of code, shown above, should be refactored like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">someValue</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The second approach looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="nx">someValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This comparison will be true, only if the value of <code>someValue</code> is <code>NaN</code>.</p>
+
+<p>In my humbe oppinion, the first approach is far more readable and should be prefered.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/02/28/javascript-inheritance-pitfall/">JavaScript Inheritance Pitfall</a></h1>
     
     
@@ -123,9 +225,9 @@
 
 
 
-<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'>Feb 28 2015</span> <span class='time'>11:16 pm</span></time>
+<time class='entry-date' datetime='2015-02-28T23:16:07+02:00'><span class='date'>Feb 28 2015</span> <span class='time'></span></time>
         
-         | <a href="/blog/2015/02/28/javascript-inheritance-pitfall/#disqus_thread">Comments</a>
+         • <a href="/blog/2015/02/28/javascript-inheritance-pitfall/#disqus_thread">Comments</a>
         
         
       </p>

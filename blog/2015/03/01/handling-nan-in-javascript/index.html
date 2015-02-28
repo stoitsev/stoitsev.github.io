@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Nikolay Stoitsev</title>
+  <title>Handling NaN in JavaScript - Nikolay Stoitsev</title>
   <meta name="author" content="Nikolay Stoitsev">
 
   
-  <meta name="description" content=" Blog Archive 2015 Handling NaN in JavaScript
-Mar 01 2015 posted in javascript JavaScript Inheritance Pitfall
-Feb 28 2015 posted in javascript ">
+  <meta name="description" content="NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example: 1
+var nanValue &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ Feb 28 2015 posted in javascript ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://stoitsev.github.io/blog/archives">
+  <link rel="canonical" href="http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Nikolay Stoitsev" type="application/atom+xml">
@@ -109,60 +108,169 @@ Feb 28 2015 posted in javascript ">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      
+        <h1 class="entry-title">Handling NaN in JavaScript</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-03-01T01:06:45+02:00'><span class='date'>Mar  1 2015</span> <span class='time'></span></time>
+        
+         • <a href="#disqus_thread">Comments</a>
+        
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example:</p>
 
-  
-  <h2>2015</h2>
-
-<article>
-  
-<h1><a href="/blog/2015/03/01/handling-nan-in-javascript/">Handling NaN in JavaScript</a></h1>
-<time datetime="2015-03-01T01:06:45+02:00" pubdate><span class='month'>Mar</span> <span class='day'>01</span> <span class='year'>2015</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/javascript/'>javascript</a></span>
-</footer>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var nanValue = 1 / 'a';</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>After this expression is evaluated, the value of the variable <code>nanValue</code> will be <code>NaN</code>.</p>
+
+<p>The fun starts here.</p>
+
+<p>If you try to check the type of <code>nanValue</code> like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">typeof</span> <span class="nx">a</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>The result will be &ldquo;number&rdquo;.</p>
 
-<article>
-  
-<h1><a href="/blog/2015/02/28/javascript-inheritance-pitfall/">JavaScript Inheritance Pitfall</a></h1>
-<time datetime="2015-02-28T23:16:07+02:00" pubdate><span class='month'>Feb</span> <span class='day'>28</span> <span class='year'>2015</span></time>
+<p>Also, if you try to compare NaN to NaN, here is what happens:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/javascript/'>javascript</a></span>
-</footer>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="nx">nanValue</span><span class="p">;</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">nanValue</span> <span class="o">==</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>So, if you have to check for <code>NaN</code> value in some production code, you might write the following block:</p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="kc">NaN</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This condition will be always true. No matter if <code>someValue</code> contains <code>NaN</code> or not.</p>
+
+<p>The correct way to do this is to use the built in function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN">isNaN</a> or perform a special type of comparison.</p>
+
+<p>The block of code, shown above, should be refactored like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">someValue</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The second approach looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="nx">someValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do something;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This comparison will be true, only if the value of <code>someValue</code> is <code>NaN</code>.</p>
+
+<p>In my humbe oppinion, the first approach is far more readable and should be prefered.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
-</article>
 
 
-</div>
-
-<aside class="sidebar">
   
+
+
+  <span class="byline author vcard">Authored by <span class="fn">
+  
+    <a href="https://plus.google.com/+nikolaystoitsev" rel="author">Nikolay Stoitsev</a>
+  
+  </span></span>
+
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-03-01T01:06:45+02:00'><span class='date'>Mar  1 2015</span> <span class='time'></span></time>
+      
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
     
+      <div class="sharing">
   
-</aside>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/" data-via="stoitsev" data-counturl="http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-layout="button_count" data-send="false" data-width="300" data-show-faces="false"></div>
+  
+    <div class="hn-share">
+      <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
+    </div>
+</div>
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/02/28/javascript-inheritance-pitfall/" title="Previous Post: JavaScript Inheritance Pitfall">&laquo; JavaScript Inheritance Pitfall</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+
+</div>
 
     </div>
   </div>
@@ -181,7 +289,10 @@ Feb 28 2015 posted in javascript ">
       var disqus_shortname = 'stoitsevblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/';
+        var disqus_url = 'http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
