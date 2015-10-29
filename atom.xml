@@ -4,7 +4,7 @@
   <title><![CDATA[Nikolay Stoitsev]]></title>
   <link href="http://stoitsev.github.io/atom.xml" rel="self"/>
   <link href="http://stoitsev.github.io/"/>
-  <updated>2015-06-02T00:15:51+03:00</updated>
+  <updated>2015-10-29T11:29:26+02:00</updated>
   <id>http://stoitsev.github.io/</id>
   <author>
     <name><![CDATA[Nikolay Stoitsev]]></name>
@@ -12,84 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Handling NaN in JavaScript]]></title>
-    <link href="http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript/"/>
-    <updated>2015-03-01T01:06:45+02:00</updated>
-    <id>http://stoitsev.github.io/blog/2015/03/01/handling-nan-in-javascript</id>
-    <content type="html"><![CDATA[<p>NaN is a special value representing something that is not a number. It may apear as a result of some illegal operation. For example:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var nanValue = 1 / 'a';</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After this expression is evaluated, the value of the variable <code>nanValue</code> will be <code>NaN</code>.</p>
-
-<p>The fun starts here.</p>
-
-<p>If you try to check the type of <code>nanValue</code> like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">typeof</span> <span class="nx">a</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The result will be &ldquo;number&rdquo;.</p>
-
-<p>Also, if you try to compare NaN to NaN, here is what happens:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="nx">nanValue</span><span class="p">;</span> <span class="c1">// false</span>
-</span><span class='line'><span class="nx">nanValue</span> <span class="o">===</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
-</span><span class='line'><span class="nx">nanValue</span> <span class="o">==</span> <span class="kc">NaN</span><span class="p">;</span> <span class="c1">// false</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So, if you have to check for <code>NaN</code> value in some production code, you might write the following block:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="kc">NaN</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do something;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This condition will be always true. No matter if <code>someValue</code> contains <code>NaN</code> or not.</p>
-
-<p>The correct way to do this is to use the built in function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN">isNaN</a> or perform a special type of comparison.</p>
-
-<p>The block of code, shown above, should be refactored like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">someValue</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do something;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The second approach looks like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">someValue</span> <span class="o">!==</span> <span class="nx">someValue</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do something;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This comparison will be true, only if the value of <code>someValue</code> is <code>NaN</code>.</p>
-
-<p>In my humbe oppinion, the first approach is far more readable and should be prefered.</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript Inheritance Pitfall]]></title>
