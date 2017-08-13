@@ -11,29 +11,11 @@
     
     
     <item>
-      <title>Category</title>
-      <link>http://blog.stoitsev.com/categories/category/</link>
-      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
-      
-      <guid>http://blog.stoitsev.com/categories/category/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Javascript</title>
       <link>http://blog.stoitsev.com/categories/javascript/</link>
       <pubDate>Sat, 28 Feb 2015 23:16:07 +0200</pubDate>
       
       <guid>http://blog.stoitsev.com/categories/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Subcategory</title>
-      <link>http://blog.stoitsev.com/categories/subcategory/</link>
-      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
-      
-      <guid>http://blog.stoitsev.com/categories/subcategory/</guid>
       <description></description>
     </item>
     

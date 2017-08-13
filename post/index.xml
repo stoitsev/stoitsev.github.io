@@ -6,20 +6,10 @@
     <description>Recent content in Posts on Nikolay Stoitsev</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Aug 2017 23:31:13 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 28 Feb 2015 23:16:07 +0200</lastBuildDate>
     
 	<atom:link href="http://blog.stoitsev.com/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Tracing Python Applications</title>
-      <link>http://blog.stoitsev.com/2017/08/tracing-python-applications/</link>
-      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
-      
-      <guid>http://blog.stoitsev.com/2017/08/tracing-python-applications/</guid>
-      <description>As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During the talk we&amp;rsquo;ll see how tracing tools work and we&amp;rsquo;ll zoom on one particular project called pyflame.
- </description>
-    </item>
     
     <item>
       <title>Javascript Inheritance Pitfall</title>

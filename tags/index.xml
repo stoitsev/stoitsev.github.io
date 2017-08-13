@@ -20,23 +20,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>Tag1</title>
-      <link>http://blog.stoitsev.com/tags/tag1/</link>
-      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
-      
-      <guid>http://blog.stoitsev.com/tags/tag1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tag2</title>
-      <link>http://blog.stoitsev.com/tags/tag2/</link>
-      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
-      
-      <guid>http://blog.stoitsev.com/tags/tag2/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
