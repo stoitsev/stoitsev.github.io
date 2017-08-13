@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tag2 on Nikolay Stoitsev</title>
+    <link>http://blog.stoitsev.com/tags/tag2/</link>
+    <description>Recent content in Tag2 on Nikolay Stoitsev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Aug 2017 23:31:13 +0300</lastBuildDate>
+    
+	<atom:link href="http://blog.stoitsev.com/tags/tag2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tracing Python Applications</title>
+      <link>http://blog.stoitsev.com/2017/08/tracing-python-applications/</link>
+      <pubDate>Sun, 13 Aug 2017 23:31:13 +0300</pubDate>
+      
+      <guid>http://blog.stoitsev.com/2017/08/tracing-python-applications/</guid>
+      <description>As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During the talk we&amp;rsquo;ll see how tracing tools work and we&amp;rsquo;ll zoom on one particular project called pyflame.
+ </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.stoitsev.com/2017/08/tracing-python-applications/</loc>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/</loc>
     <lastmod>2015-02-28T23:16:07+02:00</lastmod>
   </url>
@@ -14,6 +19,12 @@
   
   <url>
     <loc>http://blog.stoitsev.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.stoitsev.com/categories/category/</loc>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -31,13 +42,31 @@
   
   <url>
     <loc>http://blog.stoitsev.com/</loc>
-    <lastmod>2015-02-28T23:16:07+02:00</lastmod>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://blog.stoitsev.com/post/</loc>
-    <lastmod>2015-02-28T23:16:07+02:00</lastmod>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.stoitsev.com/categories/subcategory/</loc>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.stoitsev.com/tags/tag1/</loc>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.stoitsev.com/tags/tag2/</loc>
+    <lastmod>2017-08-13T23:31:13+03:00</lastmod>
     <priority>0</priority>
   </url>
   
