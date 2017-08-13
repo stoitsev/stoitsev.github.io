@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Nikolay Stoitsev</title>
+    <link>http://blog.stoitsev.com/tags/javascript/</link>
+    <description>Recent content in Javascript on Nikolay Stoitsev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Feb 2015 23:16:07 +0200</lastBuildDate>
+    
+	<atom:link href="http://blog.stoitsev.com/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javascript Inheritance Pitfall</title>
+      <link>http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/</link>
+      <pubDate>Sat, 28 Feb 2015 23:16:07 +0200</pubDate>
+      
+      <guid>http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/</guid>
+      <description>Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.</description>
+    </item>
+    
+  </channel>
+</rss>

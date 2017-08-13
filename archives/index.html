@@ -19,21 +19,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.24.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>Nikolay Stoitsev</title>
+    <title>Archives</title>
     <meta name="author" content="Nikolay Stoitsev">
     <meta name="keywords" content="">
 
     <link rel="icon" href="http://blog.stoitsev.com/favicon.ico">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.stoitsev.com/index.xml">
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.stoitsev.com/archives/index.xml">
     
 
     
     <meta name="description" content="Hugo tranquilpeak theme demo">
     <meta property="og:description" content="Hugo tranquilpeak theme demo">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Nikolay Stoitsev">
-    <meta property="og:url" content="/">
+    <meta property="og:title" content="Archives">
+    <meta property="og:url" content="/archives/">
     <meta property="og:site_name" content="Nikolay Stoitsev">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Nikolay Stoitsev">
@@ -179,79 +179,38 @@ ga('send', 'pageview');
   </div>
 </nav>
 
-      
-
       <div id="main" data-behavior="5"
         class="
                hasCoverMetaIn
                ">
-        <section class="postShorten-group main-content-wrap">
+        <div id="archives" class="main-content-wrap">
+          <form id="filter-form" action="#">
+            <input name="date" type="text" class="form-control input--xlarge" placeholder="Search date (YYYY/MM/DD)" autofocus="autofocus">
+          </form>
+          <h5 class="archive-result text-color-base text-xlarge" data-message-zero="no post found" data-message-one="1 post found" data-message-other="{n} posts found"></h5>
+<section class="boxes">
+  
+    
+    <div class="archive archive-year box" data-date="2015">
+      <h4 class="archive-title" style="text-decoration: none;">2015</h4>
+      
+        <ul class="archive-posts archive-month" data-date="201502">
+          <h5 class="archive-title" style="text-decoration: none;">February</h5>
           
+            <li class="archive-post archive-day" data-date="20150228">
+              <a class="archive-post-title" href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/">Javascript Inheritance Pitfall</a>
+            </li>
           
-            
-  
-    
+            <li class="archive-post archive-day" data-date="20150228">
+              <a class="archive-post-title" href="http://blog.stoitsev.com/post/">Posts</a>
+            </li>
+          
+        </ul>
       
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/">
-          Javascript Inheritance Pitfall
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2015-02-28T23:16:07&#43;02:00">
-      
-  February 28, 2015
-
-    </time>
-  
-  
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="http://blog.stoitsev.com/categories/javascript">javascript</a>
-    
-  
-
-
-</div>
-
     </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.
-        <br>
-        <a href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
   
-</article>
-
-          
-          
-
-        </section>
-        <footer id="footer" class="main-content-wrap">
-  <span class="copyrights">
-    &copy; 2017 Nikolay Stoitsev. All Rights Reserved
-  </span>
-</footer>
-
+</section>
+        </div>
       </div>
     </div>
     
@@ -391,3 +350,4 @@ $(document).ready(function() {
     
   </body>
 </html>
+
