@@ -20,5 +20,32 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Peformance</title>
+      <link>http://blog.stoitsev.com/tags/peformance/</link>
+      <pubDate>Wed, 07 Jun 2017 23:31:13 +0300</pubDate>
+      
+      <guid>http://blog.stoitsev.com/tags/peformance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://blog.stoitsev.com/tags/python/</link>
+      <pubDate>Wed, 07 Jun 2017 23:31:13 +0300</pubDate>
+      
+      <guid>http://blog.stoitsev.com/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tracing</title>
+      <link>http://blog.stoitsev.com/tags/tracing/</link>
+      <pubDate>Wed, 07 Jun 2017 23:31:13 +0300</pubDate>
+      
+      <guid>http://blog.stoitsev.com/tags/tracing/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

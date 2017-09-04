@@ -1,5 +1,9 @@
 
 
+  
+    
+  
+
 
   
 
@@ -19,25 +23,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.24.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>Posts</title>
+    <title>Tracing Python Applications</title>
     <meta name="author" content="Nikolay Stoitsev">
-    <meta name="keywords" content="">
+    <meta name="keywords" content="tech">
 
     <link rel="icon" href="http://blog.stoitsev.com/favicon.ico">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.stoitsev.com/post/index.xml">
-    
 
     
-    <meta name="description" content="Hugo tranquilpeak theme demo">
-    <meta property="og:description" content="Hugo tranquilpeak theme demo">
+    <meta name="description" content="As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During my talk at Tuxcon last week I showed how tracing tools work and I zoomed on one particular project called pyflame. I went over the design decisions that were made when building it. After that I showed how we can use it to trace real Python programs and generate different flame graphs.">
+    <meta property="og:description" content="As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During my talk at Tuxcon last week I showed how tracing tools work and I zoomed on one particular project called pyflame. I went over the design decisions that were made when building it. After that I showed how we can use it to trace real Python programs and generate different flame graphs.">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Posts">
-    <meta property="og:url" content="/post/">
+    <meta property="og:title" content="Tracing Python Applications">
+    <meta property="og:url" content="/2017/06/tracing-python-applications/">
     <meta property="og:site_name" content="Nikolay Stoitsev">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Nikolay Stoitsev">
-    <meta name="twitter:description" content="Hugo tranquilpeak theme demo">
+    <meta name="twitter:description" content="As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During my talk at Tuxcon last week I showed how tracing tools work and I zoomed on one particular project called pyflame. I went over the design decisions that were made when building it. After that I showed how we can use it to trace real Python programs and generate different flame graphs.">
     
       <meta name="twitter:creator" content="@stoitsev">
     
@@ -185,31 +187,16 @@ ga('send', 'pageview');
         class="
                hasCoverMetaIn
                ">
-        <section class="postShorten-group main-content-wrap">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
           
           
-            
+            <div class="post-header main-content-wrap text-left">
   
-    
-      
-        
-      
-    
+    <h1 class="post-title" itemprop="headline">
+      Tracing Python Applications
+    </h1>
   
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://blog.stoitsev.com/2017/06/tracing-python-applications/">
-          Tracing Python Applications
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
+  <div class="postShorten-meta post-meta">
   
     <time itemprop="datePublished" datetime="2017-06-07T23:31:13&#43;03:00">
       
@@ -229,78 +216,151 @@ ga('send', 'pageview');
 
 </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During my talk at Tuxcon last week I showed how tracing tools work and I zoomed on one particular project called pyflame. I went over the design decisions that were made when building it. After that I showed how we can use it to trace real Python programs and generate different flame graphs.
-        <br>
-        <a href="http://blog.stoitsev.com/2017/06/tracing-python-applications/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
+</div>
           
-            
-  
-    
-      
-        
-      
-    
-  
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>As hackers we love to understand how stuff works and how to optimize it. A very good tool to do both is software tracing. During my talk at <a href="http://tuxcon.mobi/">Tuxcon</a> last week I showed how tracing tools work and I zoomed on one particular project called <a href="https://github.com/uber/pyflame">pyflame</a>. I went over the design decisions that were made when building it. After that I showed how we can use it to trace real Python programs and generate different <a href="http://www.brendangregg.com/flamegraphs.html">flame graphs</a>. Last but not least I demonstrated how to interpret them to understand the CPU and memory characteristics of our software.</p>
 
+<p>Here are my slides:</p>
 
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/">
-          Javascript Inheritance Pitfall
-        </a>
-      </h1>
-      <div class="postShorten-meta post-meta">
-  
-    <time itemprop="datePublished" datetime="2015-02-28T23:16:07&#43;02:00">
-      
-  February 28, 2015
-
-    </time>
-  
-  
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="http://blog.stoitsev.com/categories/javascript">javascript</a>
-    
-  
-
-
+<div style="margin: 1.5em 0 0">
+	<script async class="speakerdeck-embed" data-id="d43465c96f3740b484ee1763327b8051" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 </div>
 
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      <p>
-        Very often, while working on some JavaScript app, you will try to build a class hierarchy to encapsulate code in reusable and separate components. As you know, there are no native mechanisms in nowadays JavaScript, for creating classes and supporting inheritance. Usually people use some library that allows then to do so. Even when we use a popular battle-tested framework there are things that can go wrong. In the following post I am going to show you one of them.
-        <br>
-        <a href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
+<p>While preparing the talk I found this really great tutorial with the title <a href="https://pymotw.com/2/profile/">profile, cProfile, and pstats – Performance analysis of Python programs</a>. It focuses on these deterministic profilers and shows how to generate useful reports from the data they collect.</p>
+
+<p>You can also check the post on the <a href="https://eng.uber.com/pyflame/">Uber Engineering Blog</a> about pyflame. It explains pretty well how it&rsquo;s implemented. And if you are looking for a practical example on how to use it, look at the <a href="https://github.com/uber/pyflame/tree/master/tests">automated tests in the project</a>. Tests always serve as a great user documentation for open source projects.</p>
+
+
+ 
   
-</article>
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
 
-          
-          
+ 
+  
+  
+  
+  
+    
+  
+    
+      
+    
+  
 
-        </section>
+<div class="figure center" >
+  
+    <a class="fancybox" href="http://blog.stoitsev.com/resources/tuxcon_2.jpg" title="Speaking at Tuxcon 2017" data-fancybox-group="group:travel">
+  
+    <img class="fig-img" src="http://blog.stoitsev.com/resources/tuxcon_2.jpg"  alt="Speaking at Tuxcon 2017">
+  
+    </a>
+  
+   
+    <span class="caption">Speaking at Tuxcon 2017</span>
+  
+</div>
+
+  <div style="clear:both;"></div>
+
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="http://blog.stoitsev.com//tags/python/">python</a>
+
+  <a class="tag tag--primary tag--small" href="http://blog.stoitsev.com//tags/peformance/">peformance</a>
+
+  <a class="tag tag--primary tag--small" href="http://blog.stoitsev.com//tags/tracing/">tracing</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/" data-tooltip="Javascript Inheritance Pitfall">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+            
+          </div>
+        </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2017 Nikolay Stoitsev. All Rights Reserved
@@ -308,6 +368,86 @@ ga('send', 'pageview');
 </footer>
 
       </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="http://blog.stoitsev.com/2015/02/javascript-inheritance-pitfall/" data-tooltip="Javascript Inheritance Pitfall">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+        <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+        <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fblog.stoitsev.com%2f2017%2f06%2ftracing-python-applications%2f">
+        <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
     </div>
     
     <div id="about">
@@ -455,6 +595,10 @@ $(document).ready(function() {
   });
 });
 </script>
+
+  
+    
+  
 
 
 
